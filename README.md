@@ -1,74 +1,72 @@
-<<<<<<< HEAD
-# c
-🔌 C: Buat “Network Diagnostics Mini-Tool”. Pakai: input host/IP+port→pilih ping/trace/port-check. Manfaat: diagnosa koneksi cepat + latihan OSI/socket. Alur: validasi target→(ops) DNS→tes ICMP/TCP→ukur latency/hop→ringkas status+kode. Preview: ringkasan hasil tes rapi. Anti-error: cek format host, timeout tegas, fallback jaringan putus.
-=======
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=rect&height=130&color=0:0ea5e9,100:22c55e&text=Network%20Diagnostics%20Mini-Tool&fontSize=34&fontColor=ffffff&animation=fadeIn&fontAlignY=55" />
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=2200&pause=700&color=22C55E&center=true&vCenter=true&width=900&lines=Ping%20%7C%20Traceroute%20Sederhana%20%7C%20Port%20Check;Tool%20ringan%20untuk%20diagnosa%20koneksi%20cepat%20(Network%20Support);Validasi%20host%2FIP%20%2B%20timeout%20jelas%20%2B%20error%20informatif" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=2200&pause=700&color=22C55E&center=true&vCenter=true&width=860&lines=Ping+%7C+Traceroute+Sederhana+%7C+TCP+Port+Check;Validasi+Host%2FIP+%2B+Timeout+Jelas+%2B+Error+Informatif;Ringkas+hasil+diagnosa+untuk+analisis+Network+Support" />
   <br/>
   <img src="https://skillicons.dev/icons?i=c&perline=1" />
 </div>
 
 ---
 
+## Deskripsi
+**Network Diagnostics Mini-Tool (C)** adalah **CLI** ringan untuk diagnosa koneksi cepat: **ping**, **traceroute sederhana**, dan **TCP port check**. Tool ini membantu teknisi/network support mencatat hasil uji konektivitas secara rapi sekaligus memperlihatkan dasar **OSI/socket** (DNS resolve, latency, hop, koneksi TCP). Alur umumnya: **terima target → (opsional) resolve DNS → jalankan tes sesuai pilihan → hitung/rekap hasil → tampilkan status sukses/gagal + kode/penyebab error**.
+
+---
+
 ## Tujuan, Manfaat, dan Bahasa Pemrograman
-- ✅ **Tujuan**: CLI ringan untuk menjalankan **Ping**, **Traceroute (sederhana)**, dan **Port Check (TCP)** supaya diagnosa koneksi bisa cepat dan terstruktur.
-- ✅ **Manfaat**:
-  - Mengetahui apakah host reachable, melihat hop/rute, dan mengecek port terbuka/tertutup.
-  - Menunjukkan dasar **OSI/socket** (DNS resolve opsional + TCP connect untuk port check).
-  - Output ringkas bisa dicatat/dilampirkan ke tiket untuk analisis.
-- ✅ **Bahasa**: **C (C99)**
+- **Tujuan**: memberi “tool serbaguna” untuk cek koneksi tanpa aplikasi berat, cukup via terminal.
+- **Manfaat**:
+  - Mempercepat troubleshooting (cek reachable/latency, jalur hop, dan port service).
+  - Membantu analisis (hasil diringkas, mudah dicopy ke tiket/notes).
+  - Aman dipakai (validasi input + timeout + error message yang jelas saat jaringan tidak terjangkau).
+- **Bahasa**: **C (C99)** dengan dukungan Windows socket (**ws2_32**) untuk port check.
+
+---
+
+## Lokasi Folder (sesuai permintaan)
+Folder proyek disimpan dan dinamai **sesuai bahasa pemrograman**:
+
+- **Windows**: `C:\Users\ASUS\Desktop\proyek\c`
+- **Nama folder root**: `c`
 
 ---
 
 ## Instalasi & Persiapan Proyek
-- ✅ **Windows**: disarankan pakai **MSYS2** (UCRT64/MINGW64) agar `gcc` tersedia.
-- ✅ **Linux/Mac**: gunakan `gcc`/`clang` bawaan + `make` (opsional).
 
 ---
 
-## Build & Run (Windows PowerShell) — Auto-detect MSYS2 (UCRT64/MINGW64)
-```powershell
-# 1) Deteksi gcc (UCRT64 atau MINGW64) + set PATH otomatis
-if (Test-Path "C:\msys64\ucrt64\bin\gcc.exe") {
-  $env:Path = "C:\msys64\ucrt64\bin;" + $env:Path
-} elseif (Test-Path "C:\msys64\mingw64\bin\gcc.exe") {
-  $env:Path = "C:\msys64\mingw64\bin;" + $env:Path
-} else {
-  Write-Host "ERROR: gcc.exe tidak ditemukan. Install MSYS2 toolchain dulu (UCRT64/MINGW64)." -ForegroundColor Red
-  exit 1
-}
+## ✅ Requirements
+- **Windows**: MSYS2 + GCC + Make *(disarankan UCRT64)*  
+- **Linux/Mac**: `gcc`/`clang` + `make`
 
-# 2) Cek gcc
+---
+
+## Windows (MSYS2 UCRT64) — Install GCC & Make
+> Buka **MSYS2 UCRT64** lalu jalankan:
+
+```bash
+pacman -Syu
+pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-make
+```
+
+Cek berhasil:
+```bash
 gcc --version
-
-# 3) Compile + Run
-cd C:\Users\ASUS\Desktop\proyek\c
-gcc -O2 -Wall -Wextra -std=c99 -o netdiag.exe src/main.c src/menu.c src/validators.c src/net_utils.c src/ping_runner.c src/trace_runner.c src/portcheck.c -lws2_32
-.\netdiag.exe
+make --version
+which gcc
 ```
 
 ---
 
-## Build (MSYS2 UCRT64) — Alternatif
+## Linux/Mac — Install Compiler
+Contoh (Ubuntu/Debian):
 ```bash
-cd /c/Users/ASUS/Desktop/proyek/c
-gcc -O2 -Wall -Wextra -std=c99 -o netdiag.exe src/main.c src/menu.c src/validators.c src/net_utils.c src/ping_runner.c src/trace_runner.c src/portcheck.c -lws2_32
-./netdiag.exe
+sudo apt update
+sudo apt install -y build-essential
 ```
 
 ---
 
-## Build (Linux/Mac) — Makefile
-```bash
-cd ~/proyek/c
-make
-./netdiag
-```
-
----
-
-## Struktur File Proyek
+## Struktur Proyek
 ```text
 c/
 ├─ README.md
@@ -93,114 +91,139 @@ c/
 
 ---
 
-## Cara Menjalankan Proyek
-- ✅ Jalankan `netdiag.exe` / `netdiag` lalu pilih menu.
-- ✅ Isi target host/IP, lalu jalankan tes sesuai kebutuhan.
+## 🎯 Fitur Utama
+- ✅ **Ping**: jalankan ping OS bawaan dan ringkas hasil *(loss + min/avg/max jika tersedia)*.
+- ✅ **Traceroute (sederhana)**: jalankan traceroute OS bawaan dan ringkas hop.
+- ✅ **Port Check (TCP)**: uji koneksi TCP ke port target dengan timeout yang jelas.
+- ✅ **Validasi input**: cek format **host/IP**, port (1–65535), dan penanganan input kosong.
+- ✅ **DNS resolve (opsional)**: tampilkan IP hasil resolve jika tersedia.
+- ✅ **Error informatif**: pesan jelas untuk kasus *host invalid*, *DNS gagal*, *timeout*, atau *network unreachable*.
 
 ---
 
-## Mode Menu (Interaktif)
-- ✅ Isi angka menu di `Pilih:`
-  - `1` = Ping
-  - `2` = Traceroute (sederhana)
-  - `3` = Port Check (TCP)
-  - `4` = Exit
-- ✅ Setelah pilih tes, isi:
-  - Host/IP (contoh: `google.com` atau `8.8.8.8`)
-  - (Opsional) port / jumlah ping / hops / timeout (bisa Enter untuk default)
+## 🖼️ Preview
+> Taruh file preview ini di repo kamu (folder `assets/`) supaya README bisa menampilkan contoh output ringkas.
 
----
-
-## Mode Cepat (Non-interaktif)
-```bash
-# Ping
-./netdiag --ping google.com --count 4 --timeout 1500
-
-# Traceroute
-./netdiag --trace 8.8.8.8 --hops 15 --timeout 2000
-
-# Port check (TCP)
-./netdiag --port example.com 443 --timeout 1500
-```
-
----
-
-## Preview Output (Ringkas & Rapi)
-- File: `assets/preview_output.txt`
+- Preview output: `assets/preview_output.txt`
 
 ```text
-[NETDIAG] Target      : google.com
-[NETDIAG] Resolved IP : 142.250.xxx.xxx
+assets/
+└─ preview_output.txt
+```
 
-[PING]   Count        : 4
-[RESULT] Sent/Recv    : 4/4
-[RESULT] Loss         : 0%
-[RESULT] RTT (ms)     : min=12  avg=15  max=20
-[STATUS] OK
-
-[TRACE]  Max hops     : 15
-[RESULT] Hops sample  : 1) 192.168.1.1  2ms | 2) 10.0.0.1  8ms | ...
-
-[PORT]   Target       : example.com:443
-[RESULT] TCP connect  : OPEN (latency 34ms)
+Contoh tampilkan preview di README:
+```md
+```text
+# (isi file assets/preview_output.txt)
+```
 ```
 
 ---
 
-## Alur Program
-- ✅ Terima target → validasi format host/IP.
-- ✅ (Opsional) resolve DNS → dapatkan IPv4 target (jika domain).
-- ✅ Jalankan tes sesuai pilihan:
-  - **Ping**: jalankan command OS, parse ringkas RTT + loss (best-effort).
-  - **Traceroute**: jalankan `tracert` (Windows) / `traceroute` (Linux/macOS), ringkas hop (best-effort).
-  - **Port Check**: TCP connect dengan timeout → status `OPEN/CLOSED/FILTERED`.
-- ✅ Tampilkan status sukses/gagal + pesan error yang informatif.
+## 🛠️ Build & Compile
 
 ---
 
-## Perbaikan Error Jika Proyek Gagal (Troubleshooting)
-
----
-
-## PowerShell: `gcc` is not recognized
-- ✅ Jalankan bagian **Build & Run (Windows PowerShell) — Auto-detect MSYS2** agar PATH ter-set untuk sesi PowerShell.
-- ✅ Alternatif: compile dari MSYS2 UCRT64 langsung (bagian **Build (MSYS2 UCRT64)**).
-
----
-
-## VS Code IntelliSense: `#include` error / `ctype.h` tidak ditemukan
-- ✅ Ini biasanya error **konfigurasi IntelliSense**, bukan error compile.
-- ✅ Solusi cepat:
-  - Pastikan toolchain MSYS2 sudah terpasang dan `gcc --version` bisa jalan.
-  - VS Code → `Ctrl+Shift+P` → **C/C++: Select IntelliSense Configuration** → pilih konfigurasi yang mengarah ke GCC MSYS2.
-  - Atau set `compilerPath` ke:
-    - `C:\msys64\ucrt64\bin\gcc.exe` (UCRT64), atau
-    - `C:\msys64\mingw64\bin\gcc.exe` (MINGW64)
-
----
-
-## DNS resolve gagal / jaringan tidak terjangkau
-- ✅ Pastikan internet aktif.
-- ✅ Coba gunakan IP langsung (mis. `8.8.8.8`).
-- ✅ Jika corporate network, kemungkinan DNS/Firewall membatasi.
-
----
-
-## Traceroute tidak tersedia (Linux)
+## Opsi A — Build via Makefile (MSYS2 / Linux / Mac)
+Masuk folder proyek:
 ```bash
-sudo apt install traceroute
+cd /c/Users/ASUS/Desktop/proyek/c
+```
+
+Build:
+```bash
+make
+```
+
+Run:
+```bash
+./netdiag.exe
+```
+
+> Di Linux/Mac, output bisa saja bernama `netdiag` (tergantung Makefile kamu).
+
+---
+
+## Opsi B — Build via GCC (MSYS2 UCRT64)
+```bash
+cd /c/Users/ASUS/Desktop/proyek/c
+gcc -O2 -Wall -Wextra -std=c99 -o netdiag.exe src/main.c src/menu.c src/validators.c src/net_utils.c src/ping_runner.c src/trace_runner.c src/portcheck.c -lws2_32
+./netdiag.exe
 ```
 
 ---
 
-## Port check selalu timeout
-- ✅ Naikkan timeout (contoh: `1500` → `3000`).
-- ✅ Pastikan port benar (contoh: `80`, `443`, `22`).
-- ✅ Cek firewall/proxy/ISP yang mungkin memblok koneksi.
+## Opsi C — Build dari PowerShell (Auto-detect UCRT64 / MINGW64)
+> Paste ini di **PowerShell** (sekali jalan): auto set PATH → cek gcc → compile → run.
+
+```powershell
+# 1) Deteksi gcc (UCRT64 atau MINGW64) + set PATH otomatis
+if (Test-Path "C:\msys64\ucrt64\bin\gcc.exe") {
+  $env:Path = "C:\msys64\ucrt64\bin;" + $env:Path
+} elseif (Test-Path "C:\msys64\mingw64\bin\gcc.exe") {
+  $env:Path = "C:\msys64\mingw64\bin;" + $env:Path
+} else {
+  Write-Host "ERROR: gcc.exe tidak ditemukan. Install MSYS2 toolchain dulu (UCRT64/MINGW64)." -ForegroundColor Red
+  exit 1
+}
+
+# 2) Cek gcc
+gcc --version
+
+# 3) Compile + Run
+cd C:\Users\ASUS\Desktop\proyek\c
+gcc -O2 -Wall -Wextra -std=c99 -o netdiag.exe src/main.c src/menu.c src/validators.c src/net_utils.c src/ping_runner.c src/trace_runner.c src/portcheck.c -lws2_32
+.\netdiag.exe
+```
 
 ---
 
-## Host/IP tidak valid
-- ✅ Contoh domain valid: `google.com`
-- ✅ Contoh IPv4 valid: `8.8.8.8`
->>>>>>> bf65ef0 (first)
+## ▶️ Cara Menjalankan (Interaktif)
+Saat program jalan, kamu akan melihat menu:
+
+```text
+1) Ping
+2) Traceroute (sederhana)
+3) Port Check (TCP)
+4) Exit
+```
+
+### Contoh alur cepat (yang umum dipakai)
+- **Ping** → masukkan `google.com` → Enter untuk default count/timeout.
+- **Traceroute** → masukkan `8.8.8.8` → Enter untuk default hops/timeout.
+- **Port Check** → masukkan `google.com` → port `443` → Enter untuk default timeout.
+
+---
+
+## 🧯 Troubleshooting (Error umum & solusi)
+
+---
+
+## “gcc is not recognized” di PowerShell
+Artinya PATH Windows belum mengarah ke MSYS2. Solusi cepat: pakai **Opsi C** (PowerShell auto-detect PATH) atau compile dari **MSYS2 UCRT64** (Opsi B).
+
+---
+
+## VS Code error “cannot open source file ctype.h / includePath”
+Itu masalah IntelliSense belum menunjuk toolchain.
+- `Ctrl+Shift+P` → **C/C++: Select IntelliSense Configuration**
+- Pilih compiler:
+  - UCRT64: `C:\msys64\ucrt64\bin\gcc.exe`
+  - MINGW64: `C:\msys64\mingw64\bin\gcc.exe`
+
+---
+
+## Timeout / Network unreachable
+- Pastikan target bisa diakses (coba ganti `8.8.8.8`).
+- Cek koneksi internet / firewall kantor.
+- Untuk port check: pastikan port memang terbuka dan tidak diblokir.
+
+---
+
+## Catatan Teknis (Best-Effort & Fallback)
+Tool ini dibuat supaya tidak crash:
+- Jika DNS resolve gagal → tampilkan pesan jelas dan kembali ke menu.
+- Jika ping/traceroute gagal → tampilkan status gagal + ringkasan yang masuk akal.
+- Input tidak valid → ditolak dengan contoh format yang benar.
+
+---
