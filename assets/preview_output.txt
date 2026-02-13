@@ -1,0 +1,25 @@
+[NETDIAG] Target      : google.com
+[NETDIAG] Resolved IP : 142.250.xxx.xxx
+
+[PING]
+Sent/Recv : 4/4
+Loss      : 0%
+RTT(ms)   : min=12  avg=15  max=20
+STATUS    : OK
+
+[TRACE]
+Max Hops  : 15
+  1  192.168.1.1           2ms
+  2  10.10.0.1            10ms
+  3  100.64.0.1           18ms
+  4  *  *  *              timeout
+  5  203.0.113.1          25ms
+  6  8.8.8.8              30ms
+STATUS    : PARTIAL (some hops timeout)
+
+[PORT]
+Target    : example.com (93.184.216.34)
+TCP       : 443
+Timeout   : 1500ms
+State     : OPEN
+Info      : connection success
